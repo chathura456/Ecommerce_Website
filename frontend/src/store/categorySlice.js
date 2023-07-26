@@ -62,6 +62,8 @@ export const fetchProductsByCategory = (categoryName, dataType) => {
             //const response = await fetch(`${BASE_URL}categories/${categoryID}/products`);
             const response = await fetch(`${BASE_URL}products/category/${categoryName}`);
             const data = await response.json();
+           console.log('featch data by category started......');
+           console.log(data);
             if(dataType === 'all'){
                 dispatch(setCategoriesProductAll(data.slice(0, 10)));
                 dispatch(setCategoriesStatusAll(STATUS.IDLE));

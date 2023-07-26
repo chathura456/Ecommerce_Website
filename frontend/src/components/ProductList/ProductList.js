@@ -7,57 +7,8 @@ import Error from '../Error/Error';
 import Loader from '../Loader/Loader';
 import SingleProduct from '../SingleProduct/SingleProduct';
 import "./ProductList.scss";
-/*
-const ProductList = ({products, status}) => {
 
-    console.log(products);
-    const dispatch = useDispatch();
-    const {isModalVisible} = useSelector((state) => state.modal);
-
-    const viewModalHandler = (data) => {
-        dispatch(setModalData(data));
-        dispatch(setIsModalVisible(true));
-    }
-
-    if(status === STATUS.ERROR) return (<Error />);
-    if(status === STATUS.LOADING) return (<Loader />);
-
-    return (
-        <section className='product py-5 bg-ghost-white' id = "products">
-            { isModalVisible && <SingleProduct />}
-
-            <div className='container'>
-                <div className='product-content'>
-                    <div className='section-title'>
-                        <h3 className='text-uppercase fw-7 text-regal-blue ls-1'>Our Products</h3>
-                    </div>
-                    <div className='product-items grid'>
-                        {
-                            products.products && products.slice(0, 20).map(product => (
-                                <div className='product-item bg-white' key = {product.id} onClick = {() => viewModalHandler(product)}>
-                                    <div className='product-item-img'>
-                                        <img src = {product.thumbnail} alt = "" />
-                                        <div className = "product-item-cat text-white fs-13 text-uppercase bg-gold fw-6">{product.category}</div>
-                                    </div>
-                                    <div className='product-item-body'>
-                                        <h6 className = "product-item-title text-pine-green fw-4 fs-15">{product.title}</h6>
-                                        <div className = "product-item-price text-regal-blue fw-7 fs-18">{formatPrice(product.price)}</div>
-                                    </div>
-                                </div>
-                            ))
-                        }
-                    </div>
-                </div>
-            </div>
-        </section>
-    )
-}
-
-export default ProductList
-*/
-
-const ProductList = ({products, status}) => {
-    console.log(products);  // Log the products prop
+const ProductList = ({products, status}) => {  // Log the products prop
 
     const dispatch = useDispatch();
     const {isModalVisible} = useSelector((state) => state.modal);
@@ -70,8 +21,9 @@ const ProductList = ({products, status}) => {
     if(status === STATUS.ERROR) return (<Error />);
     if(status === STATUS.LOADING) return (<Loader />);
 
-    // Ensure that products is an object and products.products is an array before calling slice on it
-    const productList = products && Array.isArray(products.products) ? products.products : [];
+    // Check if products is an object with a products property that is an array
+    // If not, assume that products is directly an array
+    const productList = products && Array.isArray(products.products) ? products.products : products;
 
     return (
         <section className='product py-5 bg-ghost-white' id = "products">
@@ -84,7 +36,7 @@ const ProductList = ({products, status}) => {
                     </div>
                     <div className='product-items grid'>
                         {
-                            productList.slice(0, 20).map(product => (
+                            Array.isArray(productList) ? productList.slice(0, 20).map(product => (
                                 <div className='product-item bg-white' key = {product.id} onClick = {() => viewModalHandler(product)}>
                                     <div className='product-item-img'>
                                         <img src = {product.thumbnail} alt = "" />
@@ -95,7 +47,7 @@ const ProductList = ({products, status}) => {
                                         <div className = "product-item-price text-regal-blue fw-7 fs-18">{formatPrice(product.price)}</div>
                                     </div>
                                 </div>
-                            ))
+                            )):null
                         }
                     </div>
                 </div>
@@ -105,3 +57,4 @@ const ProductList = ({products, status}) => {
 }
 
 export default ProductList
+

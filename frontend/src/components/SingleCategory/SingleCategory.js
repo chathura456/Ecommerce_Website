@@ -1,11 +1,11 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setIsModalVisible, setModalData } from '../../store/modalSlice';
 import { formatPrice } from '../../utils/helpers';
-import SingleProduct from '../SingleProduct/SingleProduct';
+import { STATUS } from "../../utils/status";
 import Error from '../Error/Error';
 import Loader from '../Loader/Loader';
-import {STATUS} from "../../utils/status";
+import SingleProduct from '../SingleProduct/SingleProduct';
 
 const SingleCategory = ({products, status}) => {
     const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const SingleCategory = ({products, status}) => {
             <div className='container'>
                 <div className='cat-single-content'>
                     <div className='section-title'>
-                        <h3 className='text-uppercase fw-7 text-regal-blue ls-1'>{products[0].category.name}</h3>
+                        <h3 className='text-uppercase fw-7 text-regal-blue ls-1'>{products[0].category}</h3>
                     </div>
                     <div className='product-items grid'>
                         {
@@ -34,7 +34,7 @@ const SingleCategory = ({products, status}) => {
                                 <div className='product-item bg-white' key = {product.id} onClick = {() => viewModalHandler(product)}>
                                     <div className='product-item-img'>
                                         <img src = {product.images[0]} alt = "" />
-                                        <div className = "product-item-cat text-white fs-13 text-uppercase bg-gold fw-6">{product.category.name}</div>
+                                        <div className = "product-item-cat text-white fs-13 text-uppercase bg-gold fw-6">{product.category}</div>
                                     </div>
                                     <div className='product-item-body'>
                                         <h6 className = "product-item-title text-pine-green fw-4 fs-15">{product.title}</h6>
@@ -51,3 +51,4 @@ const SingleCategory = ({products, status}) => {
 }
 
 export default SingleCategory;
+

@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Category from '../../components/Category/Category';
+import Footer from "../../components/Footer/Footer";
+import Navbar from '../../components/Navbar/Navbar';
 import ProductList from '../../components/ProductList/ProductList';
 import SingleCategory from '../../components/SingleCategory/SingleCategory';
 import Slider from '../../components/Slider/Slider';
@@ -16,23 +18,27 @@ const HomePage = () => {
   useEffect(() => {
     dispatch(fetchProducts());
     dispatch(fetchCategories());
-    dispatch(fetchProductsByCategory('furniture', 'all'));
-    dispatch(fetchProductsByCategory('mobile', 'all'));
+    dispatch(fetchProductsByCategory('smartphones', 'all'));
+    dispatch(fetchProductsByCategory('smartphones', 'all'));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className = "home-page">
+      <Navbar />
       <Slider />
       <Category categories = {categories} status = {categoryStatus} />
       <ProductList products = {products} status = {productStatus} />
+      
       <section>
-        { productsByCategory['furniture'] && <SingleCategory products = {productsByCategory['furniture']} status = {catProductAllStatus} /> }
+        { productsByCategory['smartphones'] && <SingleCategory products = {productsByCategory['smartphones']} status = {catProductAllStatus} /> }
       </section>
       <section>
-        { productsByCategory['mobile'] && <SingleCategory products = {productsByCategory['mobile']} status = {catProductAllStatus} /> }
+        { productsByCategory['smartphones'] && <SingleCategory products = {productsByCategory['smartphones']} status = {catProductAllStatus} /> }
       </section>
+      <Footer />
     </div>
+    
   )
 }
 

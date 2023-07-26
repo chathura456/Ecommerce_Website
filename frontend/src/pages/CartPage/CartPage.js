@@ -1,9 +1,11 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from "react-router-dom";
+import Footer from "../../components/Footer/Footer";
+import Navbar from '../../components/Navbar/Navbar';
+import { clearCart, getCartTotal, removeFromCart, toggleCartQty } from '../../store/cartSlice';
+import { formatPrice } from "../../utils/helpers";
 import "./CartPage.scss";
-import { useSelector, useDispatch } from 'react-redux';
-import {Link} from "react-router-dom";
-import { removeFromCart, toggleCartQty, getCartTotal, clearCart } from '../../store/cartSlice';
-import {formatPrice} from "../../utils/helpers";
 
 const CartPage = () => {
     const dispatch = useDispatch();
@@ -18,6 +20,7 @@ const CartPage = () => {
 
     return (
       <div className = "cart-page">
+        <Navbar />
         <div className = "container">
           <div className = "breadcrumb">
             <ul className = "breadcrumb-items flex">
@@ -121,6 +124,7 @@ const CartPage = () => {
                 }
             </div>
         </div>
+        <Footer />
       </div>
     )
 }

@@ -36,6 +36,8 @@
                 background-color: $clr-regal-blue;
             }
         }
+
+
     }
 
     &-btns{
@@ -162,3 +164,7 @@
         }
     }
 }
+
+.navbar-btn {
+    margin-right: 30px; /* Adjust this value as needed */
+  }
