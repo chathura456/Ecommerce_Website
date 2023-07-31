@@ -28,3 +28,5 @@ Route::post('register', [ApiUserController::class, 'register']);
 Route::get('hello', function () {
     return 'Hello World';
 });
+
+Route::get('verify/{token}', [ApiUserController::class, 'verify']);
