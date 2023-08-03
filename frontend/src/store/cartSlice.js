@@ -19,7 +19,7 @@ const cartSlice = createSlice({
         data: fetchFromLocalStorage(),
         totalItems: 0,
         totalAmount: 0,
-        deliveryCharge: 1000
+        deliveryCharge: 10
     }, 
     reducers: {
         addToCart(state, action){

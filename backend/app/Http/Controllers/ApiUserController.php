@@ -58,12 +58,18 @@ public function requestToken(Request $request)
 }
 
 
-    public function revokeToken(Request $request): string
-    {
-        $request->user()->currentAccessToken()->delete();
-    
+public function revokeToken(Request $request): string
+{
+    $user = $request->user();
+
+    if ($user) {
+        $user->currentAccessToken()->delete();
         return response()->json(['message' => 'Token revoked']);
+    } else {
+        return response()->json(['message' => 'No authenticated user'], 401);
     }
+}
+
 
     public function revokeAllTokens(Request $request): string
     {

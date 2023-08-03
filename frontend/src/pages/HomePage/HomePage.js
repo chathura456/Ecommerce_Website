@@ -4,7 +4,6 @@ import Category from '../../components/Category/Category';
 import Footer from "../../components/Footer/Footer";
 import Navbar from '../../components/Navbar/Navbar';
 import ProductList from '../../components/ProductList/ProductList';
-import SingleCategory from '../../components/SingleCategory/SingleCategory';
 import Slider from '../../components/Slider/Slider';
 import { fetchCategories, fetchProductsByCategory } from '../../store/categorySlice';
 import { fetchProducts } from '../../store/productSlice';
@@ -26,16 +25,9 @@ const HomePage = () => {
   return (
     <div className = "home-page">
       <Navbar />
-      <Slider />
-      <Category categories = {categories} status = {categoryStatus} />
+      <Slider /> 
       <ProductList products = {products} status = {productStatus} />
-      
-      <section>
-        { productsByCategory['smartphones'] && <SingleCategory products = {productsByCategory['smartphones']} status = {catProductAllStatus} /> }
-      </section>
-      <section>
-        { productsByCategory['smartphones'] && <SingleCategory products = {productsByCategory['smartphones']} status = {catProductAllStatus} /> }
-      </section>
+      <Category categories = {categories} status = {categoryStatus} />
       <Footer />
     </div>
     

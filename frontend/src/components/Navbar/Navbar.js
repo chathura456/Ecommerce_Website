@@ -1,16 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { logoutUser } from '../../store/auth';
 import { getCartTotal } from '../../store/cartSlice';
 import { fetchCategories } from '../../store/categorySlice';
 import "./Navbar.scss";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const {data: categories} = useSelector((state) => state.category);
-  const {totalItems} = useSelector((state => state.cart));
+  const { data: categories } = useSelector((state) => state.category);
+  const { totalItems } = useSelector((state => state.cart));
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  // Get user data from local storage
+  const user = JSON.parse(localStorage.getItem('user'));
+  //const token = JSON.parse(localStorage.getItem('token'));
+  //console.log(token);
+
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+      window.location.reload(); // to refresh the page
+    } catch (error) {
+      console.error('Logout failed', error);
+    }
+  };
 
   useEffect(() => {
     dispatch(fetchCategories());
@@ -35,8 +50,17 @@ const Navbar = () => {
         </form>
 
           <div className = "navbar-btns flex">
-          <Link to = "/login" className="navbar-btn">Login</Link>
-          <Link to = "/register" className="navbar-btn">Register</Link>
+          {user ? (
+            <>
+              <span className="navbar-btn">Hi, {user.name}</span>
+              <button onClick={handleLogout} className="navbar-btn">Logout</button>
+            </>
+          ) : (
+            <>
+              <Link to = "/login" className="navbar-btn">Login</Link>
+              <Link to = "/register" className="navbar-btn">Register</Link>
+            </>
+          )}
 
           <Link to = "/cart" className="add-to-cart-btn flex">
             <span className = "btn-ico">

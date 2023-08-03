@@ -115,7 +115,7 @@ const CartPage = () => {
                                         <span className='fw-6'>{formatPrice(totalAmount + deliveryCharge)}</span>
                                     </div>
                                     <div className='cart-summary-btn'>
-                                        <button type = "button" className='btn-secondary'>Proceed to Checkout</button>
+                                        <button type = "button" className='btn-secondary'><Link to = "/checkout" className="add-to-cart-btn flex">Proceed to Checkout</Link></button>
                                     </div>
                                 </div>
                             </div>
