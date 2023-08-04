@@ -9,6 +9,8 @@ const LoginPage = () => {
   const containerRef = useRef(null);
   const [message, setMessage] = useState(null);
   const [isError, setIsError] = useState(false);
+  const [isLoginLoading, setIsLoginLoading] = useState(false);
+  const [isRegisterLoading, setIsRegisterLoading] = useState(false);
   const navigate = useNavigate();
 
   // Initialize state for form inputs
@@ -34,6 +36,7 @@ const LoginPage = () => {
 
   const handleSignUpClick = async (e) => {
     e.preventDefault();
+    
     if (containerRef.current) {
       containerRef.current.classList.add("right-panel-active");
     }
@@ -46,8 +49,10 @@ const LoginPage = () => {
     }
   
     try {
+      setIsRegisterLoading(true);
       const data = await registerUser(registerData);
       console.log('Registration successful', data);
+      setIsRegisterLoading(false);
       setMessage('Registration successful');
       setRegisterData({ name: '', email: '', phone: '', password: '' });
       setIsError(false);
@@ -58,6 +63,7 @@ const LoginPage = () => {
     } catch (error) {
       console.error('Registration failed', error);
       setMessage('Registration failed', error);
+      setIsRegisterLoading(false);
       setIsError(true);
     }
     setTimeout(() => {
@@ -68,6 +74,7 @@ const LoginPage = () => {
   
   const handleSignInClick = async (e) => {
     e.preventDefault();
+    
     if (containerRef.current) {
       containerRef.current.classList.remove("right-panel-active");
     }
@@ -80,14 +87,17 @@ const LoginPage = () => {
     }
   
     try {
+      setIsLoginLoading(true);
       const data = await loginUser(loginData);
       console.log('Login successful', data);
+      
     
       // Save the token and user data to the local storage or context
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
       setLoginData({ email: '', password: '' });
       setIsError(false); // Clear the input fields
+      setIsLoginLoading(false);
       setMessage('Login successful');
 
       setTimeout(() => {
@@ -99,6 +109,7 @@ const LoginPage = () => {
       console.error('Login failed', error);
       setMessage('Login failed', error);
       setIsError(true);
+      setIsLoginLoading(false);
       setLoginData({ email: '', password: '' }); // Clear the input fields
     }
     setTimeout(() => {
@@ -125,7 +136,11 @@ const LoginPage = () => {
   <input type="email" placeholder="Email" name="email" value={registerData.email} onChange={(e) => handleInputChange(e, setRegisterData)} />
   <input type="phone" placeholder="Phone" name="phone" value={registerData.phone} onChange={(e) => handleInputChange(e, setRegisterData)} />
   <input type="password" placeholder="Password" name="password" value={registerData.password} onChange={(e) => handleInputChange(e, setRegisterData)} />
-            <button type="submit">Sign Up</button>
+  {isRegisterLoading ? (
+    <div className="spinner"></div>
+  ) : (
+    <button type="submit">Sign Up</button>
+  )}
           </form>
         </div>
         <div className="form-container sign-in-container">
@@ -140,7 +155,11 @@ const LoginPage = () => {
             <input type="email" placeholder="Email" name="email" value={loginData.email} onChange={(e) => handleInputChange(e, setLoginData)} />
   <input type="password" placeholder="Password" name="password" value={loginData.password} onChange={(e) => handleInputChange(e, setLoginData)} />
             <a href="#">Forgot your password?</a>
-            <button type="submit">Sign In</button>
+            {isLoginLoading ? (
+    <div className="spinner"></div>
+  ) : (
+    <button type="submit">Sign In</button>
+  )}
           </form>
         </div>
         <div className="overlay-container">
