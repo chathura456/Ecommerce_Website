@@ -53,16 +53,7 @@ const Navbar = () => {
           {user ? (
             <>
               <span className="navbar-btn">Hi, {user.name}</span>
-              <button onClick={handleLogout} className="navbar-btn">Logout</button>
-            </>
-          ) : (
-            <>
-              <Link to = "/login" className="navbar-btn">Login</Link>
-              <Link to = "/register" className="navbar-btn">Register</Link>
-            </>
-          )}
-
-          <Link to = "/cart" className="add-to-cart-btn flex">
+              <Link to = "/cart" className="add-to-cart-btn flex">
             <span className = "btn-ico">
               <i className = "fas fa-shopping-cart"></i>
             </span>
@@ -70,6 +61,23 @@ const Navbar = () => {
               <span className='cart-count-value'>{totalItems}</span>
             </div>
           </Link>
+              <button onClick={handleLogout} className="navbar-btn">Logout</button>
+            </>
+          ) : (
+            <>
+              <Link to = "/login" className="navbar-btn">Login / Register</Link>
+              <Link to = "/cart" className="add-to-cart-btn flex">
+            <span className = "btn-ico">
+              <i className = "fas fa-shopping-cart"></i>
+            </span>
+            <div className='btn-txt fw-5'>Cart
+              <span className='cart-count-value'>{totalItems}</span>
+            </div>
+          </Link>
+            </>
+          )}
+
+         
         </div>
       </div>
     </div>

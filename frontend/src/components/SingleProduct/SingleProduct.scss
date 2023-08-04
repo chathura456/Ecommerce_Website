@@ -81,6 +81,13 @@
             }
         }
 
+        .details-right .details-img img {
+            width: 100%; /* or any specific size you want */
+            height: 300px; /* or any specific size you want */
+            object-fit: cover;
+        }
+        
+
         @media screen and (min-width: 800px){
             grid-template-columns: repeat(2, 1fr);
             column-gap: 40px;

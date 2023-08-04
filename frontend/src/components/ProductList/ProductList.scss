@@ -16,6 +16,12 @@
         &-img{
             position: relative;
 
+            img {
+                width: 100%; /* or any specific size you want */
+                height: 200px; /* or any specific size you want */
+                object-fit: cover;
+            }
+
             .product-item-cat{
                 position: absolute;
                 top: 8px;

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
 import Navbar from '../../components/Navbar/Navbar';
-import { getCartTotal } from '../../store/cartSlice';
+import { clearCart, getCartTotal } from '../../store/cartSlice';
 import { formatPrice } from "../../utils/helpers";
 import "./Checkout.scss";
 const CheckoutPage = () => {
@@ -102,7 +102,10 @@ const CheckoutPage = () => {
   <img className="payment-logo" src="https://www.logolynx.com/images/logolynx/c3/c36093ca9fb6c250f74d319550acac4d.jpeg" alt="" />
 </div>
 
-<button type = "button" className='btn-secondary'><Link to = "/confirm" >Place Order</Link></button>
+<button type="button" className='btn-secondary' onClick={() => dispatch(clearCart())}>
+  <Link to="/confirm">Place Order</Link>
+</button>
+
               </div>
             </div>
           </div>

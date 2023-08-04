@@ -103,8 +103,6 @@ const CategoryPage = () => {
 
 export default CategoryPage;*/
 
-import { fetchCategories, fetchProductsByCategory } from '../../store/categorySlice';
-import { fetchProducts } from '../../store/productSlice';
 
 const CategoryPage = () => {
  const dispatch = useDispatch();
@@ -113,13 +111,9 @@ const CategoryPage = () => {
   const {data: products, status: productStatus} = useSelector((state) => state.product);
   const {catProductAll: productsByCategory, catProductAllStatus} = useSelector((state) => state.category);
   useEffect(() => {
-    dispatch(fetchProducts());
-    dispatch(fetchCategories());
-    dispatch(fetchProductsCategory(name))
-    dispatch(fetchProductsByCategory('smartphones', 'all'));
-    dispatch(fetchProductsByCategory('smartphones', 'all'));
+    dispatch(fetchProductsCategory(name));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [name]);
 
 
   return (
